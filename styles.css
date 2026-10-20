@@ -5531,15 +5531,6 @@ html[data-theme="dark"] .archive-chapter[data-tone="peach"] {
     height: 74px;
   }
 
-  .brand-meta {
-    display: none;
-  }
-
-  .brand-mark {
-    font-weight: 900;
-    -webkit-text-stroke: 0.35px currentColor;
-  }
-
   .mobile-menu {
     inset-block-start: 74px;
   }
@@ -5550,13 +5541,6 @@ html[data-theme="dark"] .archive-chapter[data-tone="peach"] {
   }
 
   .edit-access {
-    width: 38px;
-    height: 38px;
-    padding: 0;
-    justify-content: center;
-  }
-
-  .edit-access [data-edit-access-label] {
     display: none;
   }
 
@@ -6385,11 +6369,23 @@ html[data-theme="dark"] .archive-chapter[data-tone="peach"] {
   }
 
   .archive-heading {
-    margin-top: 82px;
+    margin-top: 48px;
+    gap: 18px;
   }
 
   .archive-heading h3 {
-    font-size: clamp(37px, 10.8vw, 52px);
+    font-size: clamp(34px, 9.5vw, 42px);
+  }
+
+  .archive-heading > p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .archive-chapters {
+    margin-top: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .archive-grid {
@@ -6635,56 +6631,63 @@ html[data-theme="dark"] .archive-chapter[data-tone="peach"] {
 }
 
 @media (max-width: 620px) {
+  .archive-chapters {
+    margin-top: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
   .archive-module {
-    min-height: 360px;
-    border-radius: 22px;
+    min-height: 144px;
+    border-radius: 16px;
   }
 
   .archive-module:first-child,
   .archive-module:last-child {
-    min-height: 430px;
+    min-height: 144px;
+    grid-column: auto;
   }
 
   .archive-module-top {
-    top: 18px;
-    right: 18px;
-    left: 18px;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    font-size: 6px;
   }
 
-  .archive-module-body {
-    right: 104px;
-    bottom: 20px;
-    left: 18px;
-  }
-
-  .archive-module-body strong {
-    font-size: clamp(48px, 14vw, 66px);
-  }
-
-  .archive-module-arrow {
-    right: 18px;
-    bottom: 20px;
-    width: auto;
-    min-width: 66px;
-    height: 36px;
-    padding: 0 12px;
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    backdrop-filter: blur(14px);
-  }
-
-  .archive-arrow-icon {
+  .archive-module-top > span:last-child {
     display: none;
   }
 
-  .archive-arrow-label {
-    display: inline;
+  .archive-module-body {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    gap: 4px;
   }
 
-  .archive-module:hover .archive-module-arrow {
-    transform: none;
+  .archive-module-body strong {
+    overflow: hidden;
+    font-size: clamp(24px, 7.6vw, 30px);
+    line-height: 0.94;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .archive-module-body > span {
+    overflow: hidden;
+    font-size: 6px;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .archive-module-arrow {
+    display: none;
+  }
+
+  .archive-foot {
+    margin-top: 14px;
   }
 
   .hero-actions .button svg {
