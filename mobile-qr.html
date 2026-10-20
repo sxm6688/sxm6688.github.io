@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3f0e8" />
+    <title>单小蔓 SXM — 手机版二维码</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f3f0e8;
+        --card: #fbf8ef;
+        --ink: #11110f;
+        --muted: #77736a;
+        --line: #d9d3c5;
+        --cyan: #55e0d8;
+        --teal: #08737a;
+        font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 90% 8%, rgba(85, 224, 216, 0.2), transparent 26%),
+          var(--paper);
+      }
+
+      main {
+        display: grid;
+        width: min(100% - 40px, 1120px);
+        min-height: 100svh;
+        margin-inline: auto;
+        padding: 34px 0 56px;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
+        align-items: center;
+        gap: clamp(36px, 8vw, 100px);
+      }
+
+      .back {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        color: var(--muted);
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .brand {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.08em;
+      }
+
+      .brand i {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-left: 5px;
+        border-radius: 50%;
+        background: var(--cyan);
+        transform: translateY(-13px);
+      }
+
+      .kicker {
+        margin-top: 72px;
+        color: var(--muted);
+        font-family: "Cascadia Mono", Consolas, monospace;
+        font-size: 9px;
+        letter-spacing: 0.14em;
+      }
+
+      h1 {
+        max-width: 600px;
+        margin: 24px 0 0;
+        font-size: clamp(46px, 7vw, 86px);
+        font-weight: 700;
+        letter-spacing: -0.07em;
+        line-height: 0.98;
+      }
+
+      h1 em {
+        color: var(--teal);
+        font-family: Georgia, serif;
+        font-weight: 500;
+      }
+
+      .intro {
+        max-width: 470px;
+        margin-top: 30px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.9;
+      }
+
+      .link-panel {
+        display: grid;
+        margin-top: 34px;
+        padding: 17px 18px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: rgba(251, 248, 239, 0.7);
+      }
+
+      .link-panel span {
+        overflow: hidden;
+        color: var(--teal);
+        font-family: "Cascadia Mono", Consolas, monospace;
+        font-size: 11px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .link-panel button,
+      .link-panel a,
+      .downloads a {
+        display: inline-flex;
+        min-height: 38px;
+        padding: 0 14px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-size: 11px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .link-panel button:hover,
+      .link-panel a:hover,
+      .downloads a:hover {
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+
+      .actions {
+        display: flex;
+        margin-top: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .actions a {
+        display: inline-flex;
+        min-height: 47px;
+        padding: 0 20px;
+        align-items: center;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .actions a.secondary {
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--ink);
+      }
+
+      .qr-card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: rgba(251, 248, 239, 0.78);
+        box-shadow: 0 32px 80px rgba(30, 28, 22, 0.1);
+      }
+
+      .qr-card img {
+        display: block;
+        width: 100%;
+        border-radius: 17px;
+      }
+
+      .qr-card p {
+        margin: 16px 4px 2px;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .downloads {
+        display: flex;
+        margin-top: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .toast {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 11px;
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .toast.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 820px) {
+        main {
+          width: min(100% - 32px, 560px);
+          padding-top: 88px;
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+
+        .back {
+          top: 22px;
+          left: 16px;
+        }
+
+        .kicker {
+          margin-top: 44px;
+        }
+
+        .qr-card {
+          padding: 12px;
+          border-radius: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back" href="./">← 返回网站</a>
+    <main>
+      <section>
+        <div class="brand" aria-label="SXM">SXM<i></i></div>
+        <p class="kicker">MOBILE EDITION / SCAN TO OPEN</p>
+        <h1>把作品<br />带到<em>掌心</em>。</h1>
+        <p class="intro">扫描二维码，在手机上浏览单小蔓个人作品集。无需连接同一 Wi-Fi，电脑保持网站服务开启即可打开。</p>
+
+        <div class="link-panel">
+          <span data-mobile-url title="https://sxm6688.github.io/mobile.html">https://sxm6688.github.io/mobile.html</span>
+          <button type="button" data-copy-link>复制链接</button>
+        </div>
+        <div class="actions">
+          <a href="./mobile.html">打开手机版</a>
+          <a class="secondary" href="./">浏览展示版</a>
+        </div>
+      </section>
+
+      <section class="qr-card" aria-label="手机版二维码">
+        <img src="./assets/mobile/sxm-mobile-qr.png" alt="单小蔓手机版网站二维码" />
+        <p>二维码已包含当前临时公网地址<br />打印或放在屏幕上都可以直接扫描</p>
+        <div class="downloads">
+          <a href="./assets/mobile/sxm-mobile-qr.png" download>下载二维码卡片</a>
+          <a href="./assets/mobile/sxm-mobile-qr-plain.png" download>纯二维码</a>
+          <a href="./assets/mobile/sxm-mobile-qr.svg" download>SVG 矢量版</a>
+        </div>
+      </section>
+    </main>
+    <div class="toast" data-toast>链接已复制</div>
+    <script>
+      const mobileUrl = "https://sxm6688.github.io/mobile.html";
+      const toast = document.querySelector("[data-toast]");
+      document.querySelector("[data-copy-link]").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(mobileUrl);
+          toast.textContent = "链接已复制";
+        } catch {
+          toast.textContent = "请长按链接复制";
+        }
+        toast.classList.add("is-visible");
+        window.setTimeout(() => toast.classList.remove("is-visible"), 1800);
+      });
+    </script>
+  </body>
+</html>

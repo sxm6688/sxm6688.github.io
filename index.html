@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light" data-access="view">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="单小蔓 SXM 的个人作品与年度档案，涵盖旅行、绘画、书法、设计、建模动画与分镜制作。"
+    />
+    <meta name="theme-color" content="#f3f0e8" />
+    <title>单小蔓 SXM — Visual Artist &amp; Designer</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2311110f'/%3E%3Ccircle cx='48' cy='16' r='7' fill='%2355e0d8'/%3E%3Ctext x='9' y='45' font-family='Arial,sans-serif' font-size='27' font-weight='700' letter-spacing='-2' fill='%23f3f0e8'%3ESXM%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem("sxm-theme");
+          const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+          document.documentElement.dataset.theme = saved || preferred;
+          if (sessionStorage.getItem("sxm-edit-access") === "true") {
+            document.documentElement.dataset.access = "edit";
+          }
+        } catch (error) {}
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("view") === "mobile") {
+          document.documentElement.dataset.view = "mobile";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <header class="site-header" data-header>
+      <nav class="nav-shell" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="SXM 首页">
+          <span class="brand-mark">
+            SXM<span class="brand-dot" aria-hidden="true"></span>
+          </span>
+          <span class="brand-meta">SHAN XIAOMAN<br />VISUAL ARTIST</span>
+        </a>
+
+        <div class="nav-links" aria-label="页面章节">
+          <a href="#archive" data-nav-link>档案</a>
+          <a href="#about" data-nav-link>能力</a>
+          <a href="#contact" data-nav-link>联系</a>
+        </div>
+
+        <div class="nav-actions">
+          <span class="availability">
+            <span class="availability-dot" aria-hidden="true"></span>
+            <span>20岁 · 继续探索</span>
+          </span>
+
+          <button class="edit-access" type="button" data-edit-access aria-label="进入编辑模式" aria-pressed="false">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2.5"></path>
+            </svg>
+            <span data-edit-access-label>编辑</span>
+          </button>
+
+          <button class="icon-button theme-toggle" type="button" aria-label="切换深浅主题">
+            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+            </svg>
+            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.5 14.4A8.6 8.6 0 0 1 9.6 3.5 8.8 8.8 0 1 0 20.5 14.4Z"></path>
+            </svg>
+          </button>
+
+          <button
+            class="icon-button menu-toggle"
+            type="button"
+            aria-label="打开菜单"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+          <a href="#archive"><span>01</span>档案</a>
+          <a href="#about"><span>02</span>能力</a>
+          <a href="#contact"><span>03</span>联系</a>
+          <button class="mobile-edit-entry" type="button" data-edit-access aria-label="进入编辑模式">
+            <span>04</span>
+            <span data-edit-access-label>编辑模式</span>
+            <small>PRIVATE</small>
+          </button>
+          <div class="mobile-menu-foot">
+            <span>单小蔓 / VISUAL ARTIST</span>
+            <a href="mailto:qingyiiiiii@qq.com">qingyiiiiii@qq.com</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero section-shell" id="top">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow reveal">
+              <span class="eyebrow-line"></span>
+              <span>SHAN XIAOMAN · 20 / VISUAL ARTIST</span>
+            </div>
+
+            <h1 class="hero-title reveal">
+              <span class="hero-title-line">把世界，</span>
+              <span class="hero-title-line hero-title-second">写进<span class="title-accent">作品里</span><span class="hero-title-period">。</span></span>
+            </h1>
+
+            <p class="hero-intro reveal">
+              你好，我是 <strong>单小蔓</strong>。20岁，视觉创作者。
+              这里收藏我的作品、旅程，以及正在继续生长的生活。
+            </p>
+
+            <div class="hero-actions reveal">
+              <a class="button button-primary magnetic" href="#archive">
+                <span>打开年度档案</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h13M13 6l6 6-6 6"></path>
+                </svg>
+              </a>
+              <a class="button button-ghost magnetic" href="#contact">
+                <span>聊聊你的想法</span>
+              </a>
+            </div>
+
+            <div class="hero-foot reveal">
+              <div class="hero-note">
+                <span class="hero-note-label">FOCUS</span>
+                <span>绘画 / 书法 / 设计 / 影像</span>
+              </div>
+              <div class="hero-note">
+                <span class="hero-note-label">EARTH ONLINE</span>
+                <span>19 → 20 / 继续解锁</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal" data-tilt>
+            <div class="visual-stage">
+              <div class="stage-grid" aria-hidden="true"></div>
+              <div class="stage-index" aria-hidden="true">01 / 26</div>
+              <div class="stage-note" aria-hidden="true">
+                <span>A YEAR IN</span>
+                <span>MOTION</span>
+              </div>
+
+              <div class="orb-wrap" aria-hidden="true">
+                <div class="orb-glow"></div>
+                <div class="orb"></div>
+                <div class="orb-ring orbit-text">
+                  <span>IDEAS IN MOTION · IDEAS IN MOTION · </span>
+                </div>
+                <div class="orb-star">
+                  <svg viewBox="0 0 64 64">
+                    <path d="M32 3c1.3 17.3 11.7 27.7 29 29-17.3 1.3-27.7 11.7-29 29-1.3-17.3-11.7-27.7-29-29C20.3 30.7 30.7 20.3 32 3Z"></path>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="stage-chip stage-chip-top" aria-hidden="true">
+                <span class="chip-dot"></span>
+                OPEN FOR SELECT PROJECTS
+              </div>
+              <div class="stage-card" aria-hidden="true">
+                <div class="stage-card-label">19 → 20 / EARTH ONLINE</div>
+                <div class="stage-card-title">Keep<br />Exploring</div>
+                <div class="stage-card-foot">
+                  <span>20</span>
+                  <span class="stage-card-arrow">↗</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="personal-index reveal" aria-label="网站模块入口">
+          <div class="personal-index-head">
+            <span>PERSONAL INDEX / 个人索引</span>
+            <span>SELECT A ROOM</span>
+          </div>
+          <div class="personal-index-grid">
+            <a class="index-card" href="#archive">
+              <span class="index-number">01</span>
+              <span class="index-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="5" y="5" width="22" height="22" rx="2"></rect>
+                  <path d="m5 22 7-7 6 6 3-3 6 6"></path>
+                  <circle cx="21.5" cy="11.5" r="2"></circle>
+                </svg>
+              </span>
+              <span class="index-copy">
+                <strong>年度档案</strong>
+                <small>旅行 · 绘画 · 书法 · 建模 · 舞台</small>
+              </span>
+              <span class="index-arrow" aria-hidden="true">前往</span>
+            </a>
+
+            <a class="index-card" href="#about">
+              <span class="index-number">02</span>
+              <span class="index-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="11"></circle>
+                  <path d="M16 9v7l5 3"></path>
+                  <path d="M3 16h4M25 16h4"></path>
+                </svg>
+              </span>
+              <span class="index-copy">
+                <strong>能力</strong>
+                <small>正在生长的创作工具箱</small>
+              </span>
+              <span class="index-arrow" aria-hidden="true">前往</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>PAINTING</span><i>✳</i><span>CALLIGRAPHY</span><i>✳</i>
+          <span>VISUAL DESIGN</span><i>✳</i><span>3D MODELING</span><i>✳</i>
+          <span>ANIMATION</span><i>✳</i><span>STORYBOARD</span><i>✳</i>
+          <span>PAINTING</span><i>✳</i><span>CALLIGRAPHY</span><i>✳</i>
+          <span>VISUAL DESIGN</span><i>✳</i><span>3D MODELING</span><i>✳</i>
+          <span>ANIMATION</span><i>✳</i><span>STORYBOARD</span><i>✳</i>
+        </div>
+      </div>
+
+      <section class="work section-shell" id="work" hidden>
+        <div class="section-heading reveal">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>SELECTED WORK</span>
+            </div>
+            <h2>五种表达，<br /><em>同一种认真。</em></h2>
+          </div>
+          <div class="section-aside">
+            <p>
+              从19岁的年度档案里挑出的真实作品：画过的角色、写完的长卷、
+              做过的动画，以及在纸面与屏幕之间慢慢长出来的表达。
+            </p>
+            <span class="sample-note">精选自 19 岁年度总结 · 持续更新</span>
+          </div>
+        </div>
+
+        <div class="work-filters reveal" role="group" aria-label="筛选作品">
+          <button class="filter-chip is-active" type="button" data-filter="all">全部</button>
+          <button class="filter-chip" type="button" data-filter="painting">绘画</button>
+          <button class="filter-chip" type="button" data-filter="calligraphy">书法</button>
+          <button class="filter-chip" type="button" data-filter="design">设计</button>
+          <button class="filter-chip" type="button" data-filter="animation">建模动画</button>
+          <button class="filter-chip" type="button" data-filter="storyboard">分镜制作</button>
+        </div>
+
+        <div class="work-grid">
+          <article class="project-card project-wide reveal" data-category="painting">
+            <button
+              class="project-open"
+              type="button"
+              data-project="painting"
+              aria-label="查看绘画作品方向"
+            >
+              <div class="project-visual media-cover painting-cover">
+                <img src="./assets/year19/painting/red-moon.jpg" alt="红色背景的春节主题插画" />
+                <div class="media-cover-shade" aria-hidden="true"></div>
+                <div class="media-cover-label" aria-hidden="true">100+ PAINTINGS</div>
+                <div class="visual-topline visual-topline-light" aria-hidden="true">
+                  <span>PAINTING / 01</span>
+                  <span>SELECTED WORKS</span>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div>
+                  <span class="project-number">01</span>
+                  <h3>绘画</h3>
+                  <p>100+ 张绘画 / 色彩、角色与情绪</p>
+                </div>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="project-card project-tall reveal" data-category="calligraphy">
+            <button
+              class="project-open"
+              type="button"
+              data-project="calligraphy"
+              aria-label="查看书法作品方向"
+            >
+              <div class="project-visual media-cover calligraphy-cover">
+                <img src="./assets/year19/calligraphy/handscroll-03.jpg" alt="单小蔓的小楷书法长卷局部" />
+                <div class="media-cover-shade" aria-hidden="true"></div>
+                <div class="media-cover-label" aria-hidden="true">5 COMPLETE SCROLLS</div>
+                <div class="visual-topline" aria-hidden="true">
+                  <span>CALLIGRAPHY / 02</span>
+                  <span>INK &amp; BREATH</span>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div>
+                  <span class="project-number">02</span>
+                  <h3>书法</h3>
+                  <p>5 部完成长帖 / 笔墨节奏与字形结构</p>
+                </div>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="project-card project-wide reveal" data-category="design">
+            <button
+              class="project-open"
+              type="button"
+              data-project="design"
+              aria-label="查看设计作品方向"
+            >
+              <div class="project-visual media-cover design-cover">
+                <img src="./assets/year19/design/travel-layout.jpg" alt="旅行照片拼贴设计" />
+                <div class="media-cover-shade" aria-hidden="true"></div>
+                <div class="media-cover-label" aria-hidden="true">PHOTO EDITORIAL</div>
+                <div class="visual-topline" aria-hidden="true">
+                  <span>VISUAL DESIGN / 03</span>
+                  <span>MEMORY LAYOUT</span>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div>
+                  <span class="project-number">03</span>
+                  <h3>设计</h3>
+                  <p>年度视觉档案 / 照片、字体与版式编辑</p>
+                </div>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="project-card project-tall reveal" data-category="animation">
+            <button
+              class="project-open"
+              type="button"
+              data-project="animation"
+              aria-label="查看建模动画作品方向"
+            >
+              <div class="project-visual media-cover animation-cover">
+                <img src="./assets/year19/modeling/fox-forest.jpg" alt="夜晚森林中的两只小狐狸三维动画画面" />
+                <div class="media-cover-shade" aria-hidden="true"></div>
+                <div class="media-cover-label" aria-hidden="true">6 ANIMATED WORKS</div>
+                <div class="visual-topline visual-topline-light" aria-hidden="true">
+                  <span>3D / MOTION / 04</span>
+                  <span>LITTLE FOX</span>
+                </div>
+              </div>
+              <div class="project-meta">
+                <div>
+                  <span class="project-number">04</span>
+                  <h3>建模动画</h3>
+                  <p>6 部作品 / 形体、材质与动态节奏</p>
+                </div>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+            </button>
+          </article>
+
+          <article class="project-card project-horizontal reveal" data-category="storyboard">
+            <button
+              class="project-open"
+              type="button"
+              data-project="storyboard"
+              aria-label="查看分镜制作作品方向"
+            >
+              <div class="project-visual media-cover storyboard-cover">
+                <img src="./assets/year19/ai/corridor.jpg" alt="水面、门与光束组成的 AI 影像场景" />
+                <div class="media-cover-shade" aria-hidden="true"></div>
+                <div class="media-cover-label" aria-hidden="true">IMAGE STORY / AI FILM</div>
+                <div class="visual-topline visual-topline-light" aria-hidden="true">
+                  <span>STORYBOARD / 05</span>
+                  <span>FRAME BY FRAME</span>
+                </div>
+              </div>
+              <div class="project-meta project-meta-horizontal">
+                <div>
+                  <span class="project-number">05</span>
+                  <h3>分镜制作</h3>
+                  <p>AI 影像与叙事 / 镜头、构图与节奏</p>
+                  <p class="project-description">
+                    用画面拆解动作与情绪，在正式制作之前，让一个故事先拥有清晰的呼吸和节奏。
+                  </p>
+                </div>
+                <span class="project-arrow" aria-hidden="true">↗</span>
+              </div>
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section class="archive section-shell" id="archive">
+        <div class="section-heading reveal" hidden>
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>LIFE / BEYOND WORK</span>
+            </div>
+            <h2>作品之外，<br /><em>也在认真生活。</em></h2>
+          </div>
+          <div class="section-aside">
+            <p>
+              作品是结果，生活才是来源。这里记录此刻的状态、沿途的观察，
+              以及那些还没有变成作品，但值得被留下的片段。
+            </p>
+            <a class="sample-note" href="#archive">查看 19 岁年度档案 ↓</a>
+          </div>
+        </div>
+
+        <div class="life-grid" hidden>
+          <article class="life-feature life-feature-photo reveal">
+            <img
+              class="life-feature-image"
+              src="./assets/year19/travel/aurora.jpg"
+              alt="单小蔓在摩尔曼斯克雪原上仰望极光"
+            />
+            <div class="life-feature-overlay" aria-hidden="true"></div>
+            <div class="life-feature-top">
+              <span>19 → 20 / A YEAR TO REMEMBER</span>
+              <span data-life-date>--</span>
+            </div>
+            <p class="life-quote">“独自出发，<br />然后把世界走成了故事。”</p>
+            <div class="life-statuses">
+              <div>
+                <i></i>
+                <span>20+</span>
+                <small>城市与地区</small>
+              </div>
+              <div>
+                <i></i>
+                <span>100+</span>
+                <small>幅绘画</small>
+              </div>
+              <div>
+                <i></i>
+                <span>580.34</span>
+                <small>小时阅读</small>
+              </div>
+            </div>
+          </article>
+
+          <div class="life-notes">
+            <article class="life-note reveal">
+              <span class="life-note-index">01 / 出发</span>
+              <h3>一个人，也可以走很远</h3>
+              <p>从第一场说走就走的旅行开始，去摩尔曼斯克看极光、去西伯利亚玩雪地摩托，也去仙本那潜水、在三亚冲浪。</p>
+            </article>
+            <article class="life-note reveal">
+              <span class="life-note-index">02 / 创作</span>
+              <h3>让喜欢的事成为日常</h3>
+              <p>画了100多张画，抄完《洛神赋》《道德经》《心经》《恨赋》《草堂十志》，也完成了六部建模动画。</p>
+            </article>
+            <article class="life-note reveal">
+              <span class="life-note-index">03 / 相遇</span>
+              <h3>把生活搬上舞台</h3>
+              <p>做制作人、主演和幕后，参与《遇人不赎》《考试就剩15分钟》等作品与20余场活动；也在心理学应用大会上见到了彭凯平先生。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="year-stats reveal" hidden>
+          <div>
+            <strong>580.34</strong>
+            <span>小时阅读</span>
+            <small>READING HOURS</small>
+          </div>
+          <div>
+            <strong>100+</strong>
+            <span>幅绘画</span>
+            <small>PAINTINGS</small>
+          </div>
+          <div>
+            <strong>5</strong>
+            <span>部书法长帖</span>
+            <small>CALLIGRAPHY</small>
+          </div>
+          <div>
+            <strong>6</strong>
+            <span>部建模动画</span>
+            <small>3D ANIMATION</small>
+          </div>
+          <div>
+            <strong>20+</strong>
+            <span>场活动与舞台</span>
+            <small>STAGE &amp; EVENTS</small>
+          </div>
+        </div>
+
+        <div class="life-gallery" hidden>
+          <article class="life-tile life-tile-photo reveal">
+            <div class="life-tile-art">
+              <img src="./assets/year19/theater/peng-kaiping.jpg" alt="单小蔓在心理学应用大会上与彭凯平先生合影" />
+            </div>
+            <div class="life-tile-meta">
+              <div><strong>人物与相遇</strong><small>PEOPLE &amp; MOMENTS</small></div>
+              <span>01</span>
+            </div>
+          </article>
+          <article class="life-tile life-tile-photo reveal">
+            <div class="life-tile-art">
+              <img src="./assets/year19/friends/friends-01.jpg" alt="单小蔓与朋友合影" />
+            </div>
+            <div class="life-tile-meta">
+              <div><strong>身边的朋友</strong><small>FRIENDS &amp; LIFE</small></div>
+              <span>02</span>
+            </div>
+          </article>
+          <article class="life-tile life-tile-photo reveal">
+            <div class="life-tile-art">
+              <img src="./assets/year19/calligraphy/handscroll-04.jpg" alt="书法长卷作品" />
+            </div>
+            <div class="life-tile-meta">
+              <div><strong>写下的时间</strong><small>INK &amp; RHYTHM</small></div>
+              <span>03</span>
+            </div>
+          </article>
+          <article class="life-tile life-tile-photo reveal">
+            <div class="life-tile-art">
+              <img src="./assets/year19/theater/stage-group.jpg" alt="话剧演出结束后的舞台合影" />
+            </div>
+            <div class="life-tile-meta">
+              <div><strong>舞台与人群</strong><small>STAGE &amp; TOGETHER</small></div>
+              <span>04</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="archive-heading reveal">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>19 YEAR ARCHIVE / 年度档案</span>
+            </div>
+            <h3>走过的、画下的，<br /><em>写下的、做出来的。</em></h3>
+          </div>
+          <p>
+            十个独立板块，每个板块只展示一张封面。点击后再展开完整照片与动画，
+            让浏览保持安静，也保留打开一份记忆的仪式感。
+          </p>
+        </div>
+
+        <div class="archive-chapters" data-archive-chapters></div>
+        <div class="archive-foot reveal">
+          <span>完整整理自《19岁年度总结》</span>
+          <span><b data-archive-count>0</b> 件作品与照片</span>
+        </div>
+      </section>
+
+      <section class="about section-shell" id="about">
+        <div class="about-layout">
+          <div class="about-label reveal">
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>CAPABILITIES / 能力</span>
+            </div>
+            <span class="about-index">02</span>
+          </div>
+
+          <div class="about-content">
+            <p class="about-statement reveal">
+              创作不只是让画面变好看。<br />
+              它应该让人<em>停一下，看见平时忽略的东西。</em>
+            </p>
+            <div class="about-detail reveal">
+              <p>
+                我的创作游走在绘画、书法、设计与影像之间。喜欢从感受和故事出发，
+                用颜色、线条与结构建立画面，再把脑海里的想象变成能被看见的世界。
+              </p>
+              <p>
+                工作时，我保持好奇，也保持耐心。相信好的画面不需要解释太多——
+                它会在第一眼打动你，又在细节里留下值得回味的东西。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="capability-list reveal">
+          <div class="capability-row" data-capability="art">
+            <span class="capability-no">01</span>
+            <div class="capability-copy"><h3>绘画与书法</h3>
+            <p>从色彩、肌理到笔墨节奏，在传统媒介中寻找真诚而独特的表达。</p></div>
+            <button class="capability-manage" type="button" data-edit-capability="art" data-edit-only>编辑 / 上传 <span>＋</span></button>
+          </div>
+          <div class="capability-gallery" data-capability-gallery="art" hidden></div>
+          <div class="capability-row" data-capability="design">
+            <span class="capability-no">02</span>
+            <div class="capability-copy"><h3>视觉设计与叙事</h3>
+            <p>用图形、字体、版式与镜头组织信息，让视觉表达清晰、有层次、有记忆点。</p></div>
+            <button class="capability-manage" type="button" data-edit-capability="design" data-edit-only>编辑 / 上传 <span>＋</span></button>
+          </div>
+          <div class="capability-gallery" data-capability-gallery="design" hidden></div>
+          <div class="capability-row" data-capability="motion">
+            <span class="capability-no">03</span>
+            <div class="capability-copy"><h3>建模动画与分镜</h3>
+            <p>从空间、材质到动态节奏，用三维与镜头语言让故事真正动起来。</p></div>
+            <button class="capability-manage" type="button" data-edit-capability="motion" data-edit-only>编辑 / 上传 <span>＋</span></button>
+          </div>
+          <div class="capability-gallery" data-capability-gallery="motion" hidden></div>
+        </div>
+      </section>
+
+      <section class="services section-shell" id="services" hidden>
+        <div class="section-heading section-heading-tight reveal">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              <span>CREATIVE PRACTICE</span>
+            </div>
+            <h2>从一个画面，<br /><em>到一段完整的叙事。</em></h2>
+          </div>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <circle cx="16" cy="16" r="11"></circle>
+                  <path d="M16 5v22M5 16h22"></path>
+                </svg>
+              </span>
+              <span class="service-no">01</span>
+            </div>
+            <h3>视觉表达</h3>
+            <p>围绕绘画、书法与图形语言展开创作，让情绪、气质和想法拥有准确的视觉形态。</p>
+            <ul>
+              <li>绘画创作</li>
+              <li>书法与字体</li>
+              <li>视觉实验</li>
+            </ul>
+          </article>
+
+          <article class="service-card service-card-accent reveal">
+            <div class="service-top">
+              <span class="service-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <rect x="4" y="5" width="24" height="22" rx="3"></rect>
+                  <path d="M4 11h24M10 5v6"></path>
+                  <circle cx="10" cy="19" r="2"></circle>
+                  <path d="M15 19h8M10 23h13"></path>
+                </svg>
+              </span>
+              <span class="service-no">02</span>
+            </div>
+            <h3>设计与叙事</h3>
+            <p>把视觉、信息与故事组织在一起，形成有辨识度、能有效传达的设计表达。</p>
+            <ul>
+              <li>视觉设计</li>
+              <li>版式与海报</li>
+              <li>分镜设计</li>
+            </ul>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-icon">
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <path d="M5 23 16 5l11 18-11 4-11-4Z"></path>
+                  <path d="m5 23 11-7 11 7M16 16V5"></path>
+                </svg>
+              </span>
+              <span class="service-no">03</span>
+            </div>
+            <h3>动态与空间</h3>
+            <p>从模型、材质到镜头调度，构建有真实质感与节奏的动画和视觉叙事。</p>
+            <ul>
+              <li>3D 建模</li>
+              <li>动画制作</li>
+              <li>镜头预演</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="process section-shell" hidden>
+        <div class="process-heading reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            <span>WORKING TOGETHER</span>
+          </div>
+          <p>简单、透明，<br />把精力留给真正重要的事。</p>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <span>01</span>
+            <h3>聊清楚</h3>
+            <p>理解目标、用户和限制，找到最值得解决的问题。</p>
+          </div>
+          <div class="process-step reveal">
+            <span>02</span>
+            <h3>找方向</h3>
+            <p>用快速可视化的方式探索路线，尽早对齐审美与预期。</p>
+          </div>
+          <div class="process-step reveal">
+            <span>03</span>
+            <h3>做完整</h3>
+            <p>把核心体验做深，建立可复用、可持续扩展的设计系统。</p>
+          </div>
+          <div class="process-step reveal">
+            <span>04</span>
+            <h3>交出去</h3>
+            <p>交付可操作成果与清晰说明，确保它能在真实场景中工作。</p>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="contact section-shell" id="contact">
+        <div class="contact-inner">
+          <div class="contact-orbit" aria-hidden="true">
+            <span>LET'S TALK · LET'S TALK · LET'S TALK · </span>
+            <i>✳</i>
+          </div>
+          <div class="contact-copy reveal">
+            <div class="eyebrow eyebrow-light">
+              <span class="eyebrow-line"></span>
+              <span>START A CONVERSATION</span>
+            </div>
+            <h2>有个想法？<br /><em>我们一起把它做出来。</em></h2>
+            <p>
+              无论是一幅画、一次视觉合作、一段动画，还是一个还没想清楚的故事，
+              都欢迎来聊聊。通常我会在 1–2 个工作日内回复。
+            </p>
+          </div>
+
+          <div class="contact-actions reveal">
+            <a class="button button-light magnetic" href="mailto:qingyiiiiii@qq.com?subject=Hello%20SXM">
+              <span>qingyiiiiii@qq.com</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h13M13 6l6 6-6 6"></path>
+              </svg>
+            </a>
+            <button class="button button-outline-light" type="button" data-copy-email>
+              <span>复制邮箱</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+                <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+              </svg>
+            </button>
+            <button class="button button-outline-light contact-wechat-button" type="button" data-copy-wechat aria-label="复制微信号 Kallenkallenkallen">
+              <span>微信：Kallenkallenkallen</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+                <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="contact-foot reveal">
+            <div>
+              <span class="contact-label">PRACTICE</span>
+              <span>Visual &amp; Digital Media</span>
+            </div>
+            <div>
+              <span class="contact-label">LOCAL TIME</span>
+              <span data-local-time>--:--</span>
+            </div>
+            <div>
+              <span class="contact-label">STATUS</span>
+              <span class="status-live"><i></i>开放合作与交流</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-shell">
+      <a class="footer-brand" href="#top" aria-label="回到顶部">SXM<span>.</span></a>
+          <p>Images, words, and moving worlds.</p>
+      <div class="footer-meta">
+        <span>© <span data-year>2026</span> SXM</span>
+        <a class="footer-mobile-link" href="./mobile.html">手机版</a>
+        <a class="footer-mobile-link" href="./mobile-qr.html">二维码</a>
+        <a href="#top">BACK TO TOP ↑</a>
+      </div>
+    </footer>
+
+    <dialog class="edit-gate-dialog" data-edit-gate aria-labelledby="edit-gate-title">
+      <form class="edit-gate-form" data-edit-gate-form autocomplete="off">
+        <div class="bookmark-dialog-head">
+          <div>
+            <span>PRIVATE EDITOR / SXM</span>
+            <h2 id="edit-gate-title">进入编辑模式</h2>
+          </div>
+          <button class="dialog-close" type="button" data-edit-gate-close aria-label="关闭密码窗口">
+            <span></span><span></span>
+          </button>
+        </div>
+
+        <div class="edit-gate-intro">
+          <span class="edit-gate-seal" aria-hidden="true">SXM<span>.</span></span>
+          <p>展示版对所有访客开放。输入编辑密码后，才会显示上传、删除与整理工具。</p>
+        </div>
+
+        <label class="edit-password-label">
+          <span>编辑密码</span>
+          <span class="edit-password-field">
+            <input name="password" type="password" inputmode="text" autocomplete="current-password" placeholder="请输入密码" required />
+            <button type="button" data-edit-password-toggle aria-label="显示密码">显示</button>
+          </span>
+        </label>
+
+        <p class="edit-gate-error" data-edit-gate-error role="alert" hidden>密码不正确，请重新输入。</p>
+
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-edit-gate-close>返回展示版</button>
+          <button class="button button-primary" type="submit">
+            <span>解锁编辑</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="bookmark-dialog" data-bookmark-dialog aria-labelledby="bookmark-dialog-title">
+      <form class="bookmark-form" data-bookmark-form autocomplete="off">
+        <div class="bookmark-dialog-head">
+          <div>
+            <span>PERSONAL BOOKMARK</span>
+            <h2 id="bookmark-dialog-title">添加一个学习入口</h2>
+          </div>
+          <button class="dialog-close" type="button" data-bookmark-close aria-label="关闭添加网站窗口">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div class="bookmark-form-grid">
+          <label>
+            <span>网站名称</span>
+            <input name="name" type="text" placeholder="例如：Behance" maxlength="40" required />
+          </label>
+          <label>
+            <span>网站地址</span>
+            <input name="url" type="text" placeholder="https://example.com" maxlength="300" required />
+          </label>
+        </div>
+
+        <label>
+          <span>分类</span>
+          <select name="category">
+            <option value="inspiration">灵感</option>
+            <option value="art">艺术</option>
+            <option value="design">设计</option>
+            <option value="animation">动画</option>
+            <option value="learning">学习</option>
+            <option value="tools">工具</option>
+            <option value="daily">常用</option>
+          </select>
+        </label>
+
+        <label>
+          <span>一句话说明</span>
+          <input name="description" type="text" placeholder="这个网站用来做什么？" maxlength="80" />
+        </label>
+
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-bookmark-close>取消</button>
+          <button class="button button-primary" type="submit">
+            <span>保存入口</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h13M13 6l6 6-6 6"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="capability-dialog" data-capability-dialog aria-labelledby="capability-dialog-title">
+      <form class="capability-form" data-capability-form>
+        <div class="bookmark-dialog-head">
+          <div>
+            <span>CAPABILITY / PERSONAL EDITION</span>
+            <h2 id="capability-dialog-title">编辑能力模块</h2>
+          </div>
+          <button class="dialog-close" type="button" data-capability-close aria-label="关闭编辑窗口"><span></span><span></span></button>
+        </div>
+        <label><span>模块名称</span><input name="title" maxlength="40" required /></label>
+        <label><span>一句话介绍</span><textarea name="description" rows="3" maxlength="220" required></textarea></label>
+        <label class="capability-upload"><span>添加图片</span><input name="media" type="file" accept="image/*" multiple /><small data-capability-storage-note>可一次添加多张图片。每张图都可以单独替换、删除，并编辑标题与说明；内容保存在当前设备的浏览器中。</small></label>
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-capability-close>取消</button>
+          <button class="button button-primary" type="submit"><span>保存更改</span><span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="capability-dialog capability-item-dialog" data-capability-item-dialog aria-labelledby="capability-item-dialog-title">
+      <form class="capability-form" data-capability-item-form>
+        <div class="bookmark-dialog-head">
+          <div>
+            <span>IMAGE / CAPTION</span>
+            <h2 id="capability-item-dialog-title">编辑图片文字</h2>
+          </div>
+          <button class="dialog-close" type="button" data-capability-item-close aria-label="关闭文字编辑"><span></span><span></span></button>
+        </div>
+        <label><span>图片标题</span><input name="title" maxlength="80" required /></label>
+        <label><span>图片说明</span><textarea name="description" rows="4" maxlength="300" placeholder="写下这张图的创作背景、灵感或想记录的话"></textarea></label>
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-capability-item-close>取消</button>
+          <button class="button button-primary" type="submit"><span>保存文字</span><span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="capability-dialog capability-delete-dialog" data-capability-delete-dialog aria-labelledby="capability-delete-title">
+      <div class="capability-delete-content">
+        <span class="capability-delete-kicker">REMOVE IMAGE</span>
+        <h2 id="capability-delete-title">删除这张图片？</h2>
+        <p data-capability-delete-copy>这张图片和对应文字将从此浏览器中移除。</p>
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-capability-delete-cancel>保留图片</button>
+          <button class="button button-primary capability-delete-confirm" type="button" data-capability-delete-confirm>确认删除</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="archive-dialog" data-archive-dialog aria-labelledby="archive-dialog-title">
+      <button class="archive-dialog-close" type="button" data-archive-close aria-label="关闭图片预览">
+        <span></span>
+        <span></span>
+      </button>
+      <div class="archive-dialog-visual">
+        <img data-archive-image src="" alt="" />
+        <video data-archive-video controls playsinline preload="metadata" hidden></video>
+      </div>
+      <div class="archive-dialog-content">
+        <span class="archive-dialog-category" data-archive-category></span>
+        <h2 id="archive-dialog-title" data-archive-title></h2>
+        <p data-archive-description></p>
+        <div class="archive-manage-bar" data-edit-only>
+          <button class="archive-manage-toggle" type="button" data-archive-manage-toggle aria-pressed="false">管理作品 <span aria-hidden="true">＋</span></button>
+          <label class="archive-add-button" data-archive-add hidden>添加作品
+            <input data-archive-upload type="file" accept="image/*" multiple aria-label="上传图片作品" />
+          </label>
+          <small class="archive-manage-note" data-archive-manage-note hidden>编辑内容只保存在当前浏览器中</small>
+        </div>
+        <div class="archive-item-actions" data-archive-item-actions hidden>
+          <button type="button" data-archive-edit-item>编辑文字</button>
+          <button type="button" data-archive-replace-item>替换图片</button>
+          <button type="button" data-archive-delete-item>移出图集</button>
+        </div>
+        <div class="archive-subfilters" data-archive-subfilters hidden></div>
+        <div class="archive-dialog-thumbs" data-archive-thumbs aria-label="当前分类图片"></div>
+        <div class="archive-dialog-nav">
+          <button type="button" data-archive-prev>← 上一张</button>
+          <span data-archive-position>01 / 01</span>
+          <button type="button" data-archive-next>下一张 →</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="capability-dialog capability-item-dialog" data-archive-item-dialog aria-labelledby="archive-item-dialog-title">
+      <form class="capability-form" data-archive-item-form>
+        <div class="bookmark-dialog-head">
+          <div>
+            <span>ARCHIVE / CAPTION</span>
+            <h2 id="archive-item-dialog-title">编辑作品文字</h2>
+          </div>
+          <button class="dialog-close" type="button" data-archive-item-close aria-label="关闭文字编辑"><span></span><span></span></button>
+        </div>
+        <label><span>作品标题</span><input name="title" maxlength="80" required /></label>
+        <label><span>作品说明</span><textarea name="description" rows="4" maxlength="300" placeholder="写下这张图片的创作背景、灵感或想记录的话"></textarea></label>
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-archive-item-close>取消</button>
+          <button class="button button-primary" type="submit"><span>保存文字</span><span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="capability-dialog capability-delete-dialog" data-archive-delete-dialog aria-labelledby="archive-delete-title">
+      <div class="capability-delete-content">
+        <span class="capability-delete-kicker">ARCHIVE / REMOVE</span>
+        <h2 id="archive-delete-title">将作品移出图集？</h2>
+        <p data-archive-delete-copy>作品只会从当前浏览器的网站图集中隐藏，电脑中的原始素材不会被删除。</p>
+        <div class="bookmark-form-actions">
+          <button class="button button-ghost" type="button" data-archive-delete-cancel>保留作品</button>
+          <button class="button button-primary capability-delete-confirm" type="button" data-archive-delete-confirm>移出图集</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="project-modal" data-project-modal aria-labelledby="modal-title">
+      <div class="modal-shell">
+        <button class="modal-close" type="button" aria-label="关闭项目详情">
+          <span></span>
+          <span></span>
+        </button>
+        <div class="modal-visual" data-modal-visual></div>
+        <div class="modal-content">
+          <div class="modal-kicker" data-modal-kicker></div>
+          <h2 id="modal-title" data-modal-title></h2>
+          <p class="modal-summary" data-modal-summary></p>
+          <div class="modal-details">
+            <div>
+              <span>WHAT I EXPLORE</span>
+              <p data-modal-challenge></p>
+            </div>
+            <div>
+              <span>VISUAL LANGUAGE</span>
+              <p data-modal-approach></p>
+            </div>
+          </div>
+          <div class="modal-tags" data-modal-tags></div>
+          <div class="modal-gallery" data-modal-gallery></div>
+          <div class="modal-bottom">
+            <span>PORTFOLIO DIRECTION</span>
+            <button type="button" data-modal-next>下一个项目 →</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite">
+      <span class="toast-icon">✓</span>
+      <span data-toast-text>已复制</span>
+    </div>
+
+    <script src="./year19-gallery.js"></script>
+    <script src="./modeling-videos.js"></script>
+    <script src="./ai-videos.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
