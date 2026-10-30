@@ -1536,6 +1536,12 @@ let archiveManageMode = false;
 let archiveActiveCategory = "";
 let archiveThumbObserver = null;
 let archiveMainLoadToken = 0;
+let archiveThumbGeneration = 0;
+let archiveThumbPumpFrame = 0;
+let archiveThumbScrollFrame = 0;
+const archiveThumbQueue = [];
+const archiveThumbQueued = new Set();
+const archiveThumbLoading = new Set();
 
 function archiveItemKey(item) {
   return item.archiveId || `${item.category}:${item.video || item.src}`;
@@ -2147,7 +2153,7 @@ function archiveAssetUrl(source, retryAttempt = 0) {
   if (!source || /^(data:|blob:)/i.test(source)) return source;
   try {
     const url = new URL(source, window.location.href);
-    url.searchParams.set("v", "20261030-2");
+    url.searchParams.set("v", "20261030-3");
     if (retryAttempt) url.searchParams.set("retry", String(retryAttempt));
     return url.href;
   } catch {
@@ -2155,26 +2161,90 @@ function archiveAssetUrl(source, retryAttempt = 0) {
   }
 }
 
-function loadArchiveThumbImage(image) {
-  if (!image || image.dataset.requested === "true") return;
+function archiveThumbConcurrency() {
+  return window.matchMedia?.("(max-width: 620px)").matches ? 3 : 4;
+}
+
+function scheduleArchiveThumbPump() {
+  if (archiveThumbPumpFrame) return;
+  archiveThumbPumpFrame = window.requestAnimationFrame(() => {
+    archiveThumbPumpFrame = 0;
+    pumpArchiveThumbQueue();
+  });
+}
+
+function completeArchiveThumbLoad(image) {
+  archiveThumbLoading.delete(image);
+  scheduleArchiveThumbPump();
+}
+
+function enqueueArchiveThumbImage(image, priority = false) {
+  if (!image || !image.isConnected || image.dataset.requested === "true") return;
   const source = image.dataset.src;
   if (!source) return;
+  if (archiveThumbQueued.has(image) || archiveThumbLoading.has(image)) return;
 
-  image.dataset.requested = "true";
-  image.fetchPriority = "low";
-  image.addEventListener("load", () => {
-    image.closest(".archive-thumb")?.classList.add("is-loaded");
-  });
-  image.addEventListener("error", () => {
-    const attempt = Number(image.dataset.retryAttempt || 0);
-    if (attempt >= 1 || /^(data:|blob:)/i.test(source)) {
-      image.closest(".archive-thumb")?.classList.add("is-error");
-      return;
-    }
-    image.dataset.retryAttempt = "1";
-    window.setTimeout(() => loadArchiveThumbSource(image, source, 1), 360);
-  });
-  loadArchiveThumbSource(image, source);
+  archiveThumbQueued.add(image);
+  if (priority) {
+    archiveThumbQueue.unshift(image);
+  } else {
+    archiveThumbQueue.push(image);
+  }
+  scheduleArchiveThumbPump();
+}
+
+function pumpArchiveThumbQueue() {
+  if (!archiveDialog.open) return;
+  while (
+    archiveThumbLoading.size < archiveThumbConcurrency() &&
+    archiveThumbQueue.length
+  ) {
+    const image = archiveThumbQueue.shift();
+    archiveThumbQueued.delete(image);
+    if (!image?.isConnected || image.dataset.requested === "true") continue;
+
+    const source = image.dataset.src;
+    if (!source) continue;
+    archiveThumbLoading.add(image);
+    image.dataset.requested = "true";
+    image.dataset.thumbGeneration = String(archiveThumbGeneration);
+    image.fetchPriority = "low";
+    image.loading = "eager";
+
+    image.addEventListener("load", () => {
+      if (image.dataset.thumbGeneration !== String(archiveThumbGeneration)) return;
+      const thumb = image.closest(".archive-thumb");
+      thumb?.classList.remove("is-error");
+      thumb?.classList.add("is-loaded");
+      completeArchiveThumbLoad(image);
+    });
+
+    image.addEventListener("error", () => {
+      if (image.dataset.thumbGeneration !== String(archiveThumbGeneration)) {
+        completeArchiveThumbLoad(image);
+        return;
+      }
+      const attempt = Number(image.dataset.retryAttempt || 0);
+      if (attempt >= 1 || /^(data:|blob:)/i.test(source)) {
+        image.closest(".archive-thumb")?.classList.add("is-error");
+        completeArchiveThumbLoad(image);
+        return;
+      }
+      image.dataset.retryAttempt = "1";
+      window.setTimeout(() => {
+        if (
+          !image.isConnected ||
+          image.dataset.thumbGeneration !== String(archiveThumbGeneration)
+        ) {
+          completeArchiveThumbLoad(image);
+          return;
+        }
+        loadArchiveThumbSource(image, source, 1);
+      }, 360);
+    });
+
+    loadArchiveThumbSource(image, source);
+  }
 }
 
 function loadArchiveThumbSource(image, source, retryAttempt = 0) {
@@ -2190,8 +2260,7 @@ function getArchiveThumbObserver() {
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        loadArchiveThumbImage(entry.target);
-        archiveThumbObserver?.unobserve(entry.target);
+        enqueueArchiveThumbImage(entry.target);
       });
     },
     {
@@ -2206,9 +2275,25 @@ function getArchiveThumbObserver() {
 function queueArchiveThumbWindow(centerIndex = activeArchiveIndex, radius = 4) {
   const start = Math.max(0, centerIndex - radius);
   const end = Math.min(archiveThumbs.children.length - 1, centerIndex + radius);
+  const images = [];
   for (let index = start; index <= end; index += 1) {
-    loadArchiveThumbImage(archiveThumbs.children[index]?.querySelector("img"));
+    const image = archiveThumbs.children[index]?.querySelector("img");
+    if (image) images.push(image);
   }
+  images.reverse().forEach((image) => enqueueArchiveThumbImage(image, true));
+}
+
+function queueVisibleArchiveThumbs() {
+  if (!archiveDialog.open || !archiveThumbs.children.length) return;
+  const rootRect = archiveThumbs.getBoundingClientRect();
+  const visibleImages = [];
+  [...archiveThumbs.children].forEach((thumb) => {
+    const rect = thumb.getBoundingClientRect();
+    if (rect.bottom < rootRect.top - 140 || rect.top > rootRect.bottom + 180) return;
+    const image = thumb.querySelector("img");
+    if (image) visibleImages.push(image);
+  });
+  visibleImages.reverse().forEach((image) => enqueueArchiveThumbImage(image, true));
 }
 
 function scrollActiveArchiveThumbIntoView() {
@@ -2393,6 +2478,10 @@ function updateArchiveThumbState() {
 }
 
 function renderArchiveThumbs() {
+  archiveThumbGeneration += 1;
+  archiveThumbQueue.length = 0;
+  archiveThumbQueued.clear();
+  archiveThumbLoading.clear();
   archiveThumbObserver?.disconnect();
   archiveThumbs.replaceChildren(
     ...visibleArchiveItems.map((item, index) => {
@@ -2404,7 +2493,7 @@ function renderArchiveThumbs() {
       const image = document.createElement("img");
       image.dataset.src = item.thumb || item.src;
       image.alt = "";
-      image.loading = "lazy";
+      image.loading = "eager";
       image.decoding = "async";
       thumb.append(image);
 
@@ -2425,7 +2514,7 @@ function renderArchiveThumbs() {
   if (observer) {
     [...archiveThumbs.querySelectorAll("img")].forEach((image) => observer.observe(image));
   } else {
-    queueArchiveThumbWindow(activeArchiveIndex, 8);
+    queueArchiveThumbWindow(activeArchiveIndex, 4);
   }
 }
 
@@ -2469,11 +2558,15 @@ function openArchiveDialog(item, collection = archiveData, category = "") {
       : archiveBaseCollection.filter((entry) => entry.group === activeModelingGroup);
   const index = visibleArchiveItems.indexOf(item);
   activeArchiveIndex = index >= 0 ? index : 0;
+  body.classList.add("modal-open");
+  archiveDialog.showModal();
   renderArchiveSubfilters();
   renderArchiveThumbs();
   renderArchiveDialog();
-  body.classList.add("modal-open");
-  archiveDialog.showModal();
+  window.requestAnimationFrame(() => {
+    queueArchiveThumbWindow(activeArchiveIndex, 3);
+    queueVisibleArchiveThumbs();
+  });
 }
 
 archiveManageToggle.addEventListener("click", () => {
@@ -2687,6 +2780,14 @@ archiveDialog.addEventListener("close", () => {
   archiveVideo.pause();
   body.classList.remove("modal-open");
 });
+
+archiveThumbs.addEventListener("scroll", () => {
+  if (archiveThumbScrollFrame) return;
+  archiveThumbScrollFrame = window.requestAnimationFrame(() => {
+    archiveThumbScrollFrame = 0;
+    queueVisibleArchiveThumbs();
+  });
+}, { passive: true });
 
 document.addEventListener("keydown", (event) => {
   if (archiveDialog.open && event.key === "ArrowLeft") {
