@@ -1534,6 +1534,8 @@ let archiveEditingItem = null;
 let archivePendingDelete = null;
 let archiveManageMode = false;
 let archiveActiveCategory = "";
+let archiveThumbObserver = null;
+let archiveMainLoadToken = 0;
 
 function archiveItemKey(item) {
   return item.archiveId || `${item.category}:${item.video || item.src}`;
@@ -2141,6 +2143,121 @@ function createArchiveItem(item) {
   return button;
 }
 
+function archiveAssetUrl(source, retryAttempt = 0) {
+  if (!source || /^(data:|blob:)/i.test(source)) return source;
+  try {
+    const url = new URL(source, window.location.href);
+    url.searchParams.set("v", "20261030-2");
+    if (retryAttempt) url.searchParams.set("retry", String(retryAttempt));
+    return url.href;
+  } catch {
+    return source;
+  }
+}
+
+function loadArchiveThumbImage(image) {
+  if (!image || image.dataset.requested === "true") return;
+  const source = image.dataset.src;
+  if (!source) return;
+
+  image.dataset.requested = "true";
+  image.fetchPriority = "low";
+  image.addEventListener("load", () => {
+    image.closest(".archive-thumb")?.classList.add("is-loaded");
+  });
+  image.addEventListener("error", () => {
+    const attempt = Number(image.dataset.retryAttempt || 0);
+    if (attempt >= 1 || /^(data:|blob:)/i.test(source)) {
+      image.closest(".archive-thumb")?.classList.add("is-error");
+      return;
+    }
+    image.dataset.retryAttempt = "1";
+    window.setTimeout(() => loadArchiveThumbSource(image, source, 1), 360);
+  });
+  loadArchiveThumbSource(image, source);
+}
+
+function loadArchiveThumbSource(image, source, retryAttempt = 0) {
+  image.closest(".archive-thumb")?.classList.remove("is-error");
+  image.src = archiveAssetUrl(source, retryAttempt);
+}
+
+function getArchiveThumbObserver() {
+  if (archiveThumbObserver || !("IntersectionObserver" in window)) {
+    return archiveThumbObserver;
+  }
+  archiveThumbObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        loadArchiveThumbImage(entry.target);
+        archiveThumbObserver?.unobserve(entry.target);
+      });
+    },
+    {
+      root: archiveThumbs,
+      rootMargin: "220px 0px",
+      threshold: 0.01
+    }
+  );
+  return archiveThumbObserver;
+}
+
+function queueArchiveThumbWindow(centerIndex = activeArchiveIndex, radius = 4) {
+  const start = Math.max(0, centerIndex - radius);
+  const end = Math.min(archiveThumbs.children.length - 1, centerIndex + radius);
+  for (let index = start; index <= end; index += 1) {
+    loadArchiveThumbImage(archiveThumbs.children[index]?.querySelector("img"));
+  }
+}
+
+function scrollActiveArchiveThumbIntoView() {
+  window.requestAnimationFrame(() => {
+    const thumb = archiveThumbs.children[activeArchiveIndex];
+    if (!thumb || !archiveDialog.open) return;
+    const thumbTop = thumb.offsetTop;
+    const thumbBottom = thumbTop + thumb.offsetHeight;
+    const viewTop = archiveThumbs.scrollTop;
+    const viewBottom = viewTop + archiveThumbs.clientHeight;
+    if (thumbTop >= viewTop && thumbBottom <= viewBottom) return;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    archiveThumbs.scrollTo({
+      top: Math.max(0, thumbTop - archiveThumbs.clientHeight / 2 + thumb.offsetHeight / 2),
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
+  });
+}
+
+function loadArchiveMainImage(source) {
+  const token = ++archiveMainLoadToken;
+  archiveImage.dataset.loadToken = String(token);
+  archiveImage.dataset.retryAttempt = "0";
+  archiveImage.classList.remove("is-loaded", "is-error");
+  archiveImage.fetchPriority = "high";
+  archiveImage.src = archiveAssetUrl(source);
+}
+
+archiveImage.addEventListener("load", () => {
+  archiveImage.classList.remove("is-error");
+  archiveImage.classList.add("is-loaded");
+});
+
+archiveImage.addEventListener("error", () => {
+  const item = visibleArchiveItems[activeArchiveIndex];
+  const token = Number(archiveImage.dataset.loadToken || 0);
+  if (!item || item.video || token !== archiveMainLoadToken) return;
+  const attempt = Number(archiveImage.dataset.retryAttempt || 0);
+  if (attempt >= 1 || /^(data:|blob:)/i.test(item.src)) {
+    archiveImage.classList.add("is-error");
+    return;
+  }
+  archiveImage.dataset.retryAttempt = "1";
+  window.setTimeout(() => {
+    if (token !== archiveMainLoadToken) return;
+    archiveImage.src = archiveAssetUrl(item.src, 1);
+  }, 420);
+});
+
 function createArchiveModule(category, items) {
   const meta = archiveChapterMeta[category];
   const module = document.createElement("button");
@@ -2222,6 +2339,8 @@ function renderArchiveDialog() {
     archiveVideo.hidden = true;
     archiveVideo.removeAttribute("src");
     archiveImage.hidden = true;
+    archiveImage.removeAttribute("src");
+    archiveImage.classList.remove("is-loaded", "is-error");
     archiveDialogTitle.textContent = "这份图集还没有作品";
     archiveDialogDescription.textContent = archiveManageMode
       ? "可以从这里添加第一张图片作品。"
@@ -2250,8 +2369,8 @@ function renderArchiveDialog() {
     archiveVideo.removeAttribute("poster");
     archiveVideo.load();
     archiveImage.hidden = false;
-    archiveImage.src = item.src;
     archiveImage.alt = `${item.title} · ${item.description}`;
+    loadArchiveMainImage(item.src);
   }
 
   archiveDialogCategory.textContent =
@@ -2269,9 +2388,12 @@ function updateArchiveThumbState() {
   [...archiveThumbs.children].forEach((thumb, index) => {
     thumb.classList.toggle("is-active", index === activeArchiveIndex);
   });
+  queueArchiveThumbWindow();
+  scrollActiveArchiveThumbIntoView();
 }
 
 function renderArchiveThumbs() {
+  archiveThumbObserver?.disconnect();
   archiveThumbs.replaceChildren(
     ...visibleArchiveItems.map((item, index) => {
       const thumb = document.createElement("button");
@@ -2280,9 +2402,10 @@ function renderArchiveThumbs() {
       thumb.setAttribute("aria-label", `查看 ${item.title}`);
 
       const image = document.createElement("img");
-      image.src = item.thumb || item.src;
+      image.dataset.src = item.thumb || item.src;
       image.alt = "";
       image.loading = "lazy";
+      image.decoding = "async";
       thumb.append(image);
 
       if (item.video) {
@@ -2298,6 +2421,12 @@ function renderArchiveThumbs() {
       return thumb;
     })
   );
+  const observer = getArchiveThumbObserver();
+  if (observer) {
+    [...archiveThumbs.querySelectorAll("img")].forEach((image) => observer.observe(image));
+  } else {
+    queueArchiveThumbWindow(activeArchiveIndex, 8);
+  }
 }
 
 function refreshActiveArchiveCollection(preferredItemId = "") {
