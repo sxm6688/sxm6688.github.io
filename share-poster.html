@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11110f" />
+    <title>SXM · 分享海报</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body { min-height: 100%; margin: 0; }
+      body {
+        display: grid;
+        min-height: 100dvh;
+        place-items: center;
+        overflow-x: hidden;
+        padding: 18px;
+        background:
+          radial-gradient(circle at 82% 4%, rgba(85, 224, 216, .14), transparent 26rem),
+          #11110f;
+        color: #f3f0e8;
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      }
+      main {
+        width: min(100%, 540px);
+        min-width: 0;
+        max-width: 100%;
+      }
+      img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, .36);
+      }
+      .actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 16px;
+        color: #a9a59b;
+        font: 12px/1.5 "Cascadia Mono", Consolas, monospace;
+        letter-spacing: .05em;
+      }
+      a {
+        flex: none;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: #55e0d8;
+        color: #11110f;
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      @media (max-width: 420px) {
+        body { padding: 12px; }
+        img { border-radius: 14px; }
+        .actions { margin-top: 12px; }
+        .hint { max-width: 190px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img
+        src="./assets/share/sxm-share-poster-mobile.png"
+        alt="SXM 个人作品网站手机分享海报和二维码"
+        width="1080"
+        height="1440"
+      />
+      <div class="actions">
+        <span class="hint">手机可长按海报保存，或点击右侧下载原图。</span>
+        <a href="./assets/share/sxm-share-poster-mobile.png" download>保存海报</a>
+      </div>
+    </main>
+  </body>
+</html>
